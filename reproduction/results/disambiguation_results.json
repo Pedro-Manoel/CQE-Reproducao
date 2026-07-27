@@ -1,0 +1,7 @@
+{
+  "CQE": [89.9, 89.4, 88.1],
+  "quantulum3": [55.3, 58.3, 55.1],
+  "CQE_retrained_4b": [89.9, 89.4, 88.1],
+  "_note": "weighted avg P/R/F1 (classification_report). CQE = modelos pre-treinados (4a); CQE_retrained_4b = 18 classificadores TextCatBOW retreinados do zero (seed=0). 4a == 4b == publicado. Micro-F1: CQE=89.4 (4a e 4b), Q3=58.3. p-value(permutation)=9.999e-05.",
+  "_per_sample_counts_match_paper_appendix": true
+}

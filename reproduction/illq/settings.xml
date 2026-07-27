@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0">
+  <mirrors>
+    <mirror>
+      <id>cogcomp-http-allow</id>
+      <mirrorOf>cogcomp</mirrorOf>
+      <name>CogComp HTTP allow</name>
+      <url>http://cogcomp.org/m2repo/</url>
+    </mirror>
+  </mirrors>
+</settings>

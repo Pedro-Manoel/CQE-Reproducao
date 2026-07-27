@@ -1,4 +1,75 @@
-# CQE
+# Reprodução do CQE — *A Comprehensive Quantity Extractor* (EMNLP 2023)
+
+Este repositório é um **fork** de [vivkaz/CQE](https://github.com/vivkaz/CQE) com uma
+**reprodução independente** dos resultados publicados em
+[Almasian et al. (EMNLP 2023)](https://aclanthology.org/2023.emnlp-main.793).
+Todo o trabalho da reprodução vive em **[`reproduction/`](reproduction/)**; a biblioteca
+original, na pasta `CQE/`, é preservada intacta.
+
+**Autor da reprodução:** Pedro Manoel — Processamento de Linguagem Natural, Mestrado em
+Ciência da Computação, UFCG, 2026.1.
+
+## Veredito
+
+A reprodução foi **bem-sucedida**. Foram executados os **5 sistemas** (CQE, Quantulum3,
+Recognizers-Text, GPT-3 em cache e Illinois Quantifier) sobre os **5 conjuntos de dados**
+do artigo, além do **retreino do módulo de desambiguação** e do **teste de significância**.
+Dos **59 números** comparados com o publicado, **29 são idênticos**; a maior diferença
+encontrada é de 4,5 pontos de F1 Score, num conjunto de apenas 19 frases.
+
+| CQE no NewsQuant | Publicado | Reproduzido | Diferença |
+|---|---|---|---|
+| *Value* | 92.0 | 91.9 | −0.1 |
+| *Value + Unit* | 85.6 | 85.4 | −0.2 |
+| *Value + Change* | 88.1 | 88.0 | −0.1 |
+| Desambiguação de unidades | 88.1 | **88.1** | **0.0** |
+
+## O que a reprodução acrescenta ao artigo
+
+- **Os classificadores de desambiguação de unidade não são BERT.** Os 18 modelos publicados
+  são *bag-of-words*; retreiná-los do zero com essa arquitetura reproduz exatamente os números
+  do artigo. Na prática, **não é preciso GPU**.
+- **Duas medidas publicadas são internamente inconsistentes** — o F1 Score impresso não
+  corresponde ao *precision* e ao *recall* que o próprio artigo reporta.
+- **O Illinois Quantifier deixou de ser executável pelo caminho original**, e falha em
+  silêncio: pontuaria zero sem sinal de erro. Foi reconstruído localmente em Java.
+- **Um ambiente reexecutável**, com o *lockfile* dos 75 pacotes e a justificativa de cada pin,
+  incluindo as dependências transitivas que os autores não fixaram.
+
+> Este é o resumo. A lista completa, com as evidências e a aritmética de cada achado, está nas
+> seções [§4](reproduction/report/cqe-reproduction-report.md#4-análise-de-discrepâncias) e
+> [§5](reproduction/report/cqe-reproduction-report.md#5-desvios-entre-os-artefatos-e-o-artigo-resultados-de-reprodutibilidade)
+> do relatório — a fonte canônica.
+
+## Por onde começar
+
+| Documento | Para quê |
+|---|---|
+| [`reproduction/report/cqe-reproduction-report.md`](reproduction/report/cqe-reproduction-report.md) | **Comece aqui.** Resultados, tabelas reproduzido-vs-publicado e análise das discrepâncias |
+| [`reproduction/README.md`](reproduction/README.md) | Guia passo a passo para re-executar tudo do zero numa máquina nova |
+| [`reproduction/sobre-a-reproducao.md`](reproduction/sobre-a-reproducao.md) | A metodologia: por que os scripts são *wrappers* e não cópias do harness |
+| [`reproduction/results/tables_repro_vs_pub.md`](reproduction/results/tables_repro_vs_pub.md) | As tabelas comparativas geradas pela execução |
+
+## Princípio metodológico
+
+O código dos autores — tanto a biblioteca `CQE/` quanto o harness de avaliação
+`CQE_Evaluation` — **roda intacto**. Nenhum arquivo do upstream foi editado para "fazer dar
+certo": todos os ajustes necessários vivem fora, em [`reproduction/scripts/`](reproduction/scripts/),
+como *monkeypatches* documentados aplicados em tempo de execução. Isso garante que os
+resultados sejam atribuíveis ao código publicado, e não a quem reproduziu.
+
+A única exceção é [`CQE/NumParser.py`](CQE/NumParser.py), um *shim* de compatibilidade de
+três linhas: o harness oficial importa `from CQE.NumParser import NumParser`, mas nesta
+versão pré-submissão da biblioteca a classe vive em `CQE.CQE`. O arquivo apenas reexporta,
+sem alterar comportamento.
+
+---
+
+# CQE (biblioteca original)
+
+> A partir daqui, o README original do repositório de [vivkaz/CQE](https://github.com/vivkaz/CQE),
+> preservado como referência da biblioteca.
+
 ## This branch is kept as the last state before submission of the paper (EMNLP2023) for recent changes and updates go to [Version2](https://github.com/vivkaz/CQE/tree/version2)
 ## Evaultion and data in [CQE_Evaluation](https://github.com/satya77/CQE_Evaluation).
 

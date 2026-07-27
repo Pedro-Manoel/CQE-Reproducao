@@ -184,3 +184,24 @@ fabric.properties
 # idea folder, uncomment if you don't need it
 # .idea
 .DS_Store
+
+# === Reproducao CQE ===
+CQE_Evaluation/
+reproduction/illq/target/
+*.spacy/
+# results/ e regeneravel, EXCETO os tres artefatos que comprovam o resultado.
+# Nota: usa-se "results/*" (e nao "results/") porque o git nao entra em diretorio
+# excluido, e as regras de reinclusao abaixo nunca seriam avaliadas.
+reproduction/results/*
+!reproduction/results/config.cfg
+!reproduction/results/disambiguation_results.json
+!reproduction/results/tables_repro_vs_pub.md
+# re-incluir scripts da reproducao (sobrepoe a regra [Ss]cripts do template venv)
+!reproduction/scripts/
+!reproduction/scripts/**
+reproduction/scripts/__pycache__/
+# caches/artefatos do Illinois Quantifier (Java)
+annotation-cache-quantifier/
+reproduction/illq/annotation-cache-quantifier/
+reproduction/illq/probe.txt
+reproduction/illq/target/classes/
